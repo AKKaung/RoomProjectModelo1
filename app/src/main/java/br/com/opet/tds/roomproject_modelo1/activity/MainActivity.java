@@ -57,7 +57,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
                     repository.delete(filme.getId());
                     atualizarFilmes();
                 }
-                else{
+                else if(which == 1){
                     callActivity(filme.getId());
                 }
 

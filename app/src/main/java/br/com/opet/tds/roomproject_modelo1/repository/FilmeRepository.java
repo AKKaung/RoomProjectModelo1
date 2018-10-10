@@ -27,10 +27,15 @@ public class FilmeRepository {
         return mFilmes;
     }
 
+    public Filme loadFilmeByID(long ID) {
+        return mFilmeDAO.loadFilmeByID(ID);
+    }
+
     public void insert(Filme filme){
         new insertAsyncTask(mFilmeDAO).execute(filme);
     }
     public void delete(long id){mFilmeDAO.delete(id);}
+    public void update(Filme filme) {mFilmeDAO.update(filme);}
 
     private static class insertAsyncTask extends AsyncTask<Filme,Void,Void>{
 

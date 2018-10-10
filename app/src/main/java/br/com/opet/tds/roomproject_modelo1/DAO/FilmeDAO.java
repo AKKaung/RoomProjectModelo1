@@ -1,6 +1,5 @@
 package br.com.opet.tds.roomproject_modelo1.DAO;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
@@ -22,6 +21,9 @@ public interface FilmeDAO {
 
     @Update
     void update(Filme filme);
+
+    @Query("SELECT * FROM filme_table WHERE filme_table.ID == :id")
+    Filme loadFilmeByID(Long id);
 
     @Query("DELETE FROM filme_table where filme_table.ID == :id")
     void delete(long id);
