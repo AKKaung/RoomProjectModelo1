@@ -4,6 +4,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
 
 import java.util.List;
 
@@ -19,9 +20,15 @@ public interface FilmeDAO {
     @Insert
     void insert(Filme filme);
 
+    @Update
+    void update(Filme filme);
+
     @Query("DELETE FROM filme_table where filme_table.ID == :id")
     void delete(long id);
 
     @Query("SELECT * from filme_table ORDER BY avaliacao DESC")
     List<Filme> loadFilmes();
+
+    @Query("SELECT titulo from filme_table")
+    List<String> loadFilmesNames();
 }

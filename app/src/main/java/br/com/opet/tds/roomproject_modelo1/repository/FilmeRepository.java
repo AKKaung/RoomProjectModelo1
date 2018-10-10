@@ -1,7 +1,5 @@
 package br.com.opet.tds.roomproject_modelo1.repository;
 
-import android.app.Application;
-import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -22,16 +20,17 @@ public class FilmeRepository {
     public FilmeRepository(Context context){
         FilmeRoomDatabase db = FilmeRoomDatabase.getDatabase(context);
         mFilmeDAO = db.filmeDAO();
-        mFilmes = mFilmeDAO.loadFilmes();
     }
 
     public List<Filme> getAllFilmes(){
+        mFilmes = mFilmeDAO.loadFilmes();
         return mFilmes;
     }
 
     public void insert(Filme filme){
         new insertAsyncTask(mFilmeDAO).execute(filme);
     }
+    public void delete(long id){mFilmeDAO.delete(id);}
 
     private static class insertAsyncTask extends AsyncTask<Filme,Void,Void>{
 
