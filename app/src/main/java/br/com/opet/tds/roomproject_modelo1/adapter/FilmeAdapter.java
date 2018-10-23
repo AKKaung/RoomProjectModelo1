@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import br.com.opet.tds.roomproject_modelo1.DAO.FilmeDAO;
 import br.com.opet.tds.roomproject_modelo1.R;
 import br.com.opet.tds.roomproject_modelo1.model.Filme;
 
@@ -18,10 +19,10 @@ import br.com.opet.tds.roomproject_modelo1.model.Filme;
  * Created by Diego on 24/09/2018.
  */
 
-public class FilmeAdapter extends ArrayAdapter<Filme> {
+public class FilmeAdapter extends ArrayAdapter<FilmeDAO.FilmeJoin> {
     private int rId;
 
-    public FilmeAdapter(@NonNull Context context, int resource, @NonNull List<Filme> objects) {
+    public FilmeAdapter(@NonNull Context context, int resource, @NonNull List<FilmeDAO.FilmeJoin> objects) {
         super(context, resource, objects);
         rId = resource;
     }
@@ -35,17 +36,17 @@ public class FilmeAdapter extends ArrayAdapter<Filme> {
             mView = inflater.inflate(rId,null);
         }
 
-        Filme filme = getItem(position);
+        FilmeDAO.FilmeJoin filmeJoin = getItem(position);
 
         TextView textTitulo = mView.findViewById(R.id.textNomeFilme);
         TextView textGenero = mView.findViewById(R.id.textGeneroFilme);
         TextView textAno = mView.findViewById(R.id.textAnoFilme);
         RatingBar rating = mView.findViewById(R.id.ratingNotaFilme);
 
-        textTitulo.setText(filme.getTitulo().toUpperCase());
-        textGenero.setText(filme.getGenero());
-        textAno.setText("Ano: " + String.valueOf(filme.getAno_producao()));
-        rating.setRating((float)filme.getAvaliacao());
+        textTitulo.setText(filmeJoin.filme.getTitulo().toUpperCase());
+        textGenero.setText(filmeJoin.genero.getNome());
+        textAno.setText("Ano: " + String.valueOf(filmeJoin.filme.getAno_producao()));
+        rating.setRating((float)filmeJoin.filme.getAvaliacao());
 
         return mView;
     }

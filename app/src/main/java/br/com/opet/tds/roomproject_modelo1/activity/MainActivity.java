@@ -12,6 +12,7 @@ import android.widget.ListView;
 
 import java.util.List;
 
+import br.com.opet.tds.roomproject_modelo1.DAO.FilmeDAO;
 import br.com.opet.tds.roomproject_modelo1.R;
 import br.com.opet.tds.roomproject_modelo1.adapter.FilmeAdapter;
 import br.com.opet.tds.roomproject_modelo1.model.Filme;
@@ -22,7 +23,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
 
     private ListView listaFilmes;
     private FilmeRepository repository;
-    ArrayAdapter<Filme> adapter;
+    ArrayAdapter<FilmeDAO.FilmeJoin> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,24 +42,24 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     }
 
     private void atualizarFilmes(){
-        List<Filme> filmes = repository.getAllFilmes();
+        List<FilmeDAO.FilmeJoin> filmes = repository.getAllFilmesJoin();
         adapter = new FilmeAdapter(getApplicationContext(), R.layout.filme_item, filmes);
         listaFilmes.setAdapter(adapter);
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        final Filme filme = (Filme) adapterView.getItemAtPosition(i);
+        final FilmeDAO.FilmeJoin filmeJoin = (FilmeDAO.FilmeJoin) adapterView.getItemAtPosition(i);
         AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-        dialog.setTitle("O que fazer com " + filme.getTitulo()).setItems(R.array.opcoes, new DialogInterface.OnClickListener() {
+        dialog.setTitle("O que fazer com " + filmeJoin.filme.getTitulo()).setItems(R.array.opcoes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int which) {
                 if(which == 0) {
-                    repository.delete(filme.getId());
+                    repository.delete(filmeJoin.filme.getId());
                     atualizarFilmes();
                 }
                 else if(which == 1){
-                    callActivity(filme.getId());
+                    callActivity(filmeJoin.filme.getId());
                 }
 
             }
@@ -69,5 +70,10 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
         Intent atualizar = new Intent(MainActivity.this,AtualizarFilmeActivity.class);
         atualizar.putExtra("ID",id);
         startActivity(atualizar);
+    }
+
+    public void novoGenero(View view) {
+        Intent novoGenero = new Intent(MainActivity.this,NovoGeneroActivity.class);
+        startActivity(novoGenero);
     }
 }

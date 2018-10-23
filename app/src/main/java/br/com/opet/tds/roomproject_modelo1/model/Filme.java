@@ -2,30 +2,35 @@ package br.com.opet.tds.roomproject_modelo1.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 /**
  * Created by Diego on 24/09/2018.
  */
-@Entity(tableName = "filme_table")
+@Entity(tableName = "filme_table",
+        foreignKeys = @ForeignKey(entity = Genero.class,
+                                parentColumns = "ID",
+                                childColumns = "genero_id"))
 public class Filme {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "ID")
     private long id;
     private String titulo;
-    private String genero;
     private int ano_producao;
     private int avaliacao;
+
+    @ColumnInfo(name = "genero_id")
+    private long generoId;
 
     public Filme() {
     }
 
-    public Filme(long id, String titulo, String genero, int ano_producao, int avaliacao) {
+    public Filme(long id, String titulo, int ano_producao, int avaliacao) {
         this.id = id;
         this.titulo = titulo;
-        this.genero = genero;
         this.ano_producao = ano_producao;
         this.avaliacao = avaliacao;
     }
@@ -46,14 +51,6 @@ public class Filme {
         this.titulo = titulo;
     }
 
-    public String getGenero() {
-        return genero;
-    }
-
-    public void setGenero(String genero) {
-        this.genero = genero;
-    }
-
     public int getAno_producao() {
         return ano_producao;
     }
@@ -68,5 +65,13 @@ public class Filme {
 
     public void setAvaliacao(int avaliacao) {
         this.avaliacao = avaliacao;
+    }
+
+    public long getGeneroId() {
+        return generoId;
+    }
+
+    public void setGeneroId(long generoId) {
+        this.generoId = generoId;
     }
 }

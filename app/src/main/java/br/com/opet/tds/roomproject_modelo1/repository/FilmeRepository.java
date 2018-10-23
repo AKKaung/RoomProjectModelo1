@@ -16,6 +16,7 @@ import br.com.opet.tds.roomproject_modelo1.model.Filme;
 public class FilmeRepository {
     private FilmeDAO mFilmeDAO;
     private List<Filme> mFilmes;
+    private List<FilmeDAO.FilmeJoin> mFilmesJoin;
 
     public FilmeRepository(Context context){
         FilmeRoomDatabase db = FilmeRoomDatabase.getDatabase(context);
@@ -25,6 +26,11 @@ public class FilmeRepository {
     public List<Filme> getAllFilmes(){
         mFilmes = mFilmeDAO.loadFilmes();
         return mFilmes;
+    }
+
+    public List<FilmeDAO.FilmeJoin> getAllFilmesJoin(){
+        mFilmesJoin = mFilmeDAO.loadFilmesJoin();
+        return mFilmesJoin;
     }
 
     public Filme loadFilmeByID(long ID) {
